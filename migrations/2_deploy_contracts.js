@@ -8,26 +8,24 @@ const UnFederalReserveMaker = artifacts.require("UnFederalReserveMaker");
 
 
 module.exports = function(deployer) {
-    const twoDays = 172800;
+
 
     //DEV account must change to live account keys!@
     const owner = "0xFc633b4776ecc6299eFb597A9C6cfCFbA20Ba398";
 
 
-    deployer.deploy(Timelock, owner,twoDays);
+    deployer.deploy(Timelock, owner,'172800');
 
 
 
     //need to update to current block number and Add 6500 * 21
     // TODO!!!!!!!
-    const startBlock = 2;
-    let _bonusEndBlock = startBlock + 6500 * 28;
+
     deployer.deploy(UnFederalReserveToken,owner).then(function() {
-        return  deployer.deploy(MasterUnChairman, UnFederalReserveToken.address, owner, 100, startBlock, _bonusEndBlock);
+        return  deployer.deploy(MasterUnChairman, UnFederalReserveToken.address, owner, '100000000000000000000', '10909417', '11090917');
 
     });
 
-    deployer.deploy(MockERC20,'LPToken', 'LP', '10000000000');
 
 
 
